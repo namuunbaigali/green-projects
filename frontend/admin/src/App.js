@@ -16,6 +16,7 @@ import Menus from "./pages/Menus";
 import axios from "axios";
 import { ModalProvider } from "./contexts/ModalContext";
 import OpenAi from "./pages/OpenAi";
+import ProfielScreen from "./pages/ProfileScreen";
 
 export default function App() {
   const [menuShow, setMenuShow] = useState(false);
@@ -28,25 +29,28 @@ export default function App() {
     });
   }, []);
 
-  // const [me, setMe] = useState(undefined);
+  const [me, setMe] = useState(undefined);
 
-  // useEffect(() => {
-  //   const myData = localStorage.getItem('me');
-  //   if (myData !== 'undefined') {
-  //     setMe(JSON.parse(myData));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const myData = localStorage.getItem("me");
+    if (myData !== "undefined") {
+      setMe(JSON.parse(myData));
+    }
+  }, []);
 
-  // if (!me) {
-  //   return (
-  //     <Routes>
-  //       <Route path="/signin" element={<Signin />} />
-  //       <Route path="/signin/success" element={<SigninSuccess setMe={setMe} />} />
-  //       <Route path="/signup" element={<Singup />} />
-  //       <Route path="*" element={<SignInError />} />
-  //     </Routes>
-  //   );
-  // }
+  if (!me) {
+    return (
+      <Routes>
+        <Route path="/signin" element={<Signin />} />
+        <Route
+          path="/signin/success"
+          element={<SigninSuccess setMe={setMe} />}
+        />
+        <Route path="/signup" element={<Singup />} />
+        <Route path="*" element={<SignInError />} />
+      </Routes>
+    );
+  }
 
   return (
     <ModalProvider>
@@ -74,7 +78,8 @@ export default function App() {
             <Route path="/categories" element={<Categories />} />
             <Route path="/articles" element={<Articles />} />
             <Route path="/openai" element={<OpenAi />} />
-            {/* <Route path="/signout" element={<Signout setMe={setMe} />} /> */}
+            <Route path="/profile" element={<ProfielScreen />} />
+            <Route path="/signout" element={<Signout setMe={setMe} />} />
           </Routes>
         </div>
       </div>
